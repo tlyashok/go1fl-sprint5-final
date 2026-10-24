@@ -11,6 +11,7 @@ import (
 	"github.com/Yandex-Practicum/tracker/internal/spentenergy"
 )
 
+// Ошибки разбора данных о прогулке.
 var (
 	ErrInvalidFormat   = errors.New("неверный формат данных")
 	ErrInvalidSteps    = errors.New("количество шагов должно быть больше нуля")
@@ -25,6 +26,8 @@ type DaySteps struct {
 }
 
 // Parse разбирает строку формата "678,0h50m" и записывает данные в структуру.
+// Ресивер — указатель, чтобы изменения полей сохранялись в исходной структуре.
+// Поля заполняются только после успешной проверки всех значений.
 func (ds *DaySteps) Parse(datastring string) (err error) {
 	parts := strings.Split(datastring, ",")
 	if len(parts) != 2 {

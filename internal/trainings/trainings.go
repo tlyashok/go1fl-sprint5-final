@@ -11,11 +11,13 @@ import (
 	"github.com/Yandex-Practicum/tracker/internal/spentenergy"
 )
 
+// Поддерживаемые типы тренировок.
 const (
 	trainingTypeRunning = "Бег"
 	trainingTypeWalking = "Ходьба"
 )
 
+// Ошибки разбора данных и формирования информации о тренировке.
 var (
 	ErrInvalidFormat       = errors.New("неверный формат данных")
 	ErrInvalidSteps        = errors.New("количество шагов должно быть больше нуля")
@@ -32,6 +34,8 @@ type Training struct {
 }
 
 // Parse разбирает строку формата "3456,Ходьба,3h00m" и записывает данные в структуру.
+// Ресивер — указатель, чтобы изменения полей сохранялись в исходной структуре.
+// Поля заполняются только после успешной проверки всех значений.
 func (t *Training) Parse(datastring string) (err error) {
 	parts := strings.Split(datastring, ",")
 	if len(parts) != 3 {

@@ -13,6 +13,7 @@ const (
 	walkingCaloriesCoefficient = 0.5  // коэффициент для расчета калорий при ходьбе.
 )
 
+// Ошибки проверки входных параметров для расчета калорий.
 var (
 	ErrInvalidSteps    = errors.New("количество шагов должно быть больше нуля")
 	ErrInvalidWeight   = errors.New("вес должен быть больше нуля")
@@ -46,6 +47,8 @@ func RunningSpentCalories(steps int, weight, height float64, duration time.Durat
 }
 
 // MeanSpeed возвращает среднюю скорость в км/ч.
+// При неположительной продолжительности или количестве шагов возвращает 0,
+// что также защищает от деления на ноль.
 func MeanSpeed(steps int, height float64, duration time.Duration) float64 {
 	if duration <= 0 || steps <= 0 {
 		return 0
